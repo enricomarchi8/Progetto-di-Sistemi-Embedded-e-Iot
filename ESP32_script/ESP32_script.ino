@@ -11,7 +11,7 @@ extern "C" {
 #define WIFI_PASSWORD "raspberrypi4"
 
 // Parametri MQTT Broker
-#define MQTT_HOST IPAddress(192, 168, 169, 100)
+#define MQTT_HOST IPAddress(192, 168, 51, 100)
 #define MQTT_PORT 1883
 
 // Topic MQTT sensore 1
