@@ -1,0 +1,1165 @@
+[
+    {
+        "id": "3b6c4428c6b934be",
+        "type": "tab",
+        "label": "Termostato",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "35ae087700dac970",
+        "type": "mqtt in",
+        "z": "3b6c4428c6b934be",
+        "name": "MQTT temp",
+        "topic": "s1/temp",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7d01899f5793cbad",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "3d5354ac699b157e",
+                "0918bb7c1749d3ca"
+            ]
+        ],
+        "info": "Connessione MQTT al Raspberry per ricevere i valori di temperatura tramite l'apposito topic"
+    },
+    {
+        "id": "92f91968b435a13b",
+        "type": "mqtt in",
+        "z": "3b6c4428c6b934be",
+        "name": "MQTT hum",
+        "topic": "s1/hum",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7d01899f5793cbad",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "4210fbf0f505fb51",
+                "3d5354ac699b157e"
+            ]
+        ],
+        "info": "Connessione MQTT al Raspberry per ricevere i valori di umidità tramite l'apposito topic"
+    },
+    {
+        "id": "4210fbf0f505fb51",
+        "type": "ui_gauge",
+        "z": "3b6c4428c6b934be",
+        "name": "",
+        "group": "0dc19fcf9caf1ebd",
+        "order": 2,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": " ",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "20",
+        "max": "80",
+        "colors": [
+            "#808080",
+            "#00b500",
+            "#ff0000"
+        ],
+        "seg1": "30",
+        "seg2": "60",
+        "diff": true,
+        "className": "",
+        "x": 510,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "e6e446d751dd023f",
+        "type": "mqtt in",
+        "z": "3b6c4428c6b934be",
+        "name": "MQTT hi",
+        "topic": "s1/hi",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7d01899f5793cbad",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "9722cd19dfd24734",
+                "3d5354ac699b157e"
+            ]
+        ],
+        "info": "Connessione MQTT al Raspberry per ricevere i valori della temperatura percepita tramite l'apposito topic"
+    },
+    {
+        "id": "9722cd19dfd24734",
+        "type": "ui_gauge",
+        "z": "3b6c4428c6b934be",
+        "name": "",
+        "group": "ad2a676bc0a4199d",
+        "order": 2,
+        "width": "6",
+        "height": "6",
+        "gtype": "gage",
+        "title": " ",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "10",
+        "max": "40",
+        "colors": [
+            "#00b500",
+            "#ffd500",
+            "#ca3838"
+        ],
+        "seg1": "27",
+        "seg2": "32",
+        "diff": false,
+        "className": "",
+        "x": 510,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "0db8763e59b60a86",
+        "type": "mysql",
+        "z": "3b6c4428c6b934be",
+        "mydb": "744a7d9a31fdaebd",
+        "name": "Database",
+        "x": 1320,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "db6e86d863ffc2b2",
+        "type": "inject",
+        "z": "3b6c4428c6b934be",
+        "name": "QUERY",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "SELECT temperatura FROM Rilevazione;",
+        "x": 700,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6f3cc6fce5dc4a41",
+        "type": "debug",
+        "z": "3b6c4428c6b934be",
+        "name": "output",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "d07e6a4e0a174757",
+        "type": "inject",
+        "z": "3b6c4428c6b934be",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 620,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2d5f133306a137a3",
+        "type": "debug",
+        "z": "3b6c4428c6b934be",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "3d5354ac699b157e",
+        "type": "join",
+        "z": "3b6c4428c6b934be",
+        "name": "Formattazione valori per query SQL",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "3",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 600,
+        "y": 200,
+        "wires": [
+            [
+                "61c1f23870589b9c"
+            ]
+        ]
+    },
+    {
+        "id": "61c1f23870589b9c",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "Creazione query di inserimento",
+        "func": "msg.topic = \"INSERT INTO Rilevazione(`temperatura`, `umidità`, `heatIndex`, `idStanza`) VALUES(?, ?, ?, ?);\";\nmsg.payload = [msg.payload[\"s1/temp\"], msg.payload[\"s1/hum\"], msg.payload[\"s1/hi\"], 1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 200,
+        "wires": [
+            [
+                "0db8763e59b60a86"
+            ]
+        ]
+    },
+    {
+        "id": "71c16dad12b16203",
+        "type": "mysql",
+        "z": "3b6c4428c6b934be",
+        "mydb": "744a7d9a31fdaebd",
+        "name": "Database",
+        "x": 980,
+        "y": 460,
+        "wires": [
+            [
+                "aaf13aee7946b62d"
+            ]
+        ]
+    },
+    {
+        "id": "1bf22fb97e5452ab",
+        "type": "change",
+        "z": "3b6c4428c6b934be",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fda284c1492b924d",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "SQL_formattazione",
+        "func": "var sum = 0;\n\nfor (var i = 0; i < 3600; i++) {\n    sum += msg.payload[i].temperatura;\n}\n\nmsg.payload = sum / 3600;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 1060,
+        "wires": [
+            []
+        ],
+        "inputLabels": [
+            "array"
+        ]
+    },
+    {
+        "id": "428c7eb7da34b538",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "Generazione dataOra di inizio e fine",
+        "func": "var startDate = new Date(2023, 6, 11, 18, 0, 0, 0);\n//var startDate = msg.payload\nvar endDate;\nvar oggi = new Date();\n\nendDate = startDate.setMinutes(59,59);\nmsg.payload = [startDate,endDate];\nif (startDate.getFullYear() == oggi.getFullYear()) {\n    if (startDate.getMonth() == oggi.getMonth()) {\n        if (startDate.getDate() == oggi.getDate()) {\n            if (startDate.getHours() == oggi.getHours()) {\n                return null;\n            }\n        }\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7279388584d14dee",
+        "type": "inject",
+        "z": "3b6c4428c6b934be",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "flow",
+        "x": 170,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b3914b993560ca39",
+        "type": "debug",
+        "z": "3b6c4428c6b934be",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "57475022e673bf95",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "function 1",
+        "func": "var temperature = {};\n\ntemperature.labels = [\"temperatura\"];\n\ntemperature.series = [];\n\ntemperature.data = [msg.payload];\n\nmsg.payload = [temperature]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 840,
+        "wires": [
+            [
+                "b3914b993560ca39"
+            ]
+        ]
+    },
+    {
+        "id": "aaf13aee7946b62d",
+        "type": "split",
+        "z": "3b6c4428c6b934be",
+        "name": "Suddivisione risultato query",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 1220,
+        "y": 460,
+        "wires": [
+            [
+                "c68d0aa022d234ca"
+            ]
+        ],
+        "info": "# Suddivisione riga per riga del risultato della query in modo da avere le temperature medie di ogni ora in oggetti separati."
+    },
+    {
+        "id": "c68d0aa022d234ca",
+        "type": "change",
+        "z": "3b6c4428c6b934be",
+        "name": "Formattazione msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload.ora",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.temperatura",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1490,
+        "y": 460,
+        "wires": [
+            [
+                "09dffa698d4149df"
+            ]
+        ],
+        "info": "# Formattazione di msg come richesto dal nodo del grafico.\r\n---\r\nmsg.topic = x del grafico <br>\r\nmsg.payload = y del grafico"
+    },
+    {
+        "id": "2d2be98fbe5bc4c6",
+        "type": "inject",
+        "z": "3b6c4428c6b934be",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "v": "[]",
+                "vt": "json"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 210,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "09dffa698d4149df",
+        "type": "average-bars",
+        "z": "3b6c4428c6b934be",
+        "name": "Grafico temperatura",
+        "title": " ",
+        "period": "topic",
+        "yMin": "auto",
+        "yMax": "auto",
+        "showBarsValue": true,
+        "showScaleValue": true,
+        "showLastValue": false,
+        "showAverageValue": true,
+        "showMinimumValue": true,
+        "showMaximumValue": true,
+        "maxBar": "30",
+        "topColor": "#ff0000",
+        "bottomColor": "#ffff00",
+        "unit": "°C",
+        "fontColor": "#aaaaaa",
+        "barStyle": "Equalizer",
+        "decimal": 1,
+        "x": 1740,
+        "y": 460,
+        "wires": [
+            [
+                "97892ba2297952c1"
+            ]
+        ],
+        "info": "# Grafico temperatura oraria media\r\n---\r\n**\"minimum\"** temperatura minima <br>\r\n**\"maximum\"** temperatura massima <br>\r\n**\"average\"** temperatura media giornaliera\r\n"
+    },
+    {
+        "id": "97892ba2297952c1",
+        "type": "ui_template",
+        "z": "3b6c4428c6b934be",
+        "group": "9c90a075584ede2b",
+        "name": "",
+        "order": 4,
+        "width": "16",
+        "height": "6",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2020,
+        "y": 460,
+        "wires": [
+            []
+        ],
+        "info": "# HTML graph binding"
+    },
+    {
+        "id": "ab8fb1c28921f1dd",
+        "type": "ui_template",
+        "z": "3b6c4428c6b934be",
+        "group": "9c90a075584ede2b",
+        "name": "Termostato",
+        "order": 2,
+        "width": "6",
+        "height": "6",
+        "format": "<style>\n    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');\n    \n    svg {\n        transition: all .6s cubic-bezier(0.175, 0.885, 0.32, 1.2);\n    }\n\n    stop {\n        transition: all .5s;\n    }\n    \n\t{{'#GhostThermostat' + $id}} .led {\n    \t-webkit-transition: all 0.5s;\n    \ttransition: all 0.5s;\n    \tfill: url({{'#GhostThermostat' + $id + 'ledColor'}});\n    }\n    \n    {{'#GhostThermostat' + $id}} .fa-text {\n       font-family: FontAwesome !important; \n    }\n    {{'#GhostThermostat' + $id}} .dial {\n        -webkit-user-select: none;\n        -moz-user-select: none;\n        -ms-user-select: none;\n        user-select: none;\n    }\n    {{'#GhostThermostat' + $id}} .qGradient {\n       fill : url({{'#GhostThermostat' + $id + 'qGradient'}});\n    }\n    {{'#GhostThermostat' + $id}} .qGradientT {\n        fill : url({{'#GhostThermostat' + $id + 'qGradientT'}});\n    }\n    {{'#GhostThermostat' + $id}} .eGradient {\n        fill : url({{'#GhostThermostat' + $id + 'eGradient'}});\n    }\n    {{'#GhostThermostat' + $id}} .lbl {\n        font-family: 'Roboto', sans-serif;\n        text-anchor: middle;\n        fill : #ffffff;\n        clip-path: url({{'#GhostThermostat' + $id + 'qClip'}});\n    }\n    {{'#GhostThermostat' + $id}} .lblDial {\n        fill: #dddddd;\n    }\n    \n    {{'#GhostThermostat' + $id}} .lblAmbient {\n        font-weight: 400;\n        clip-path: url({{'#GhostThermostat' + $id + 'qClip'}});\n    }\n    \n    {{'#GhostThermostat' + $id}} .lblAmbient tspan {\n        font-weight: 400;\n    }\n    \n    {{'#GhostThermostat' + $id}} .lblTarget {\n        font-weight: 400;\n        fill: orange;\n    }\n    \n    {{'#GhostThermostat' + $id}} .lblTarget tspan {\n        font-weight: 400;\n        fill: orange;\n        clip-path: url({{'#GhostThermostat' + $id + 'qClip'}});\n    }    \n    \n    {{'#GhostThermostat' + $id}} .nodisplay {\n        display: none !important;\n    }\n    \n    {{'#GhostThermostat' + $id}} .icon {\n        font-family: FontAwesome !important;\n    }\n    \n    {{'#GhostThermostat' + $id}} .animate {\n        transition: all 0.5s;\n    }\n\n</style>\n<div id=\"{{'GhostThermostat' + $id}}\"></div> \n<script>\nvar mousedownID = -1;\nvar ghostThermostatDial = (function() {\n    console.log(\"START\");\n\n    function createSVGElement(tag, attributes, appendTo) {\n        var element = document.createElementNS('http://www.w3.org/2000/svg', tag);\n        attr(element, attributes);\n        if (appendTo) {\n            appendTo.appendChild(element);\n        }\n        return element;\n    }\n\n    function attr(element, attrs) {\n        for (var i in attrs) {\n            element.setAttribute(i, attrs[i]);\n        }\n    }\n\n    function setClass(el, className, state) {\n        el.classList[state ? 'add' : 'remove'](className);\n    }\n\n    return function(targetElement, options) {\n        console.log(\"RET FUN\");\n        var self = this;\n\n        /*\n         * Options\n         */\n        options = options || {};\n        options = {\n            diameter: options.diameter || 400,\n            mintemp: options.mintemp || 10, // Minimum value for target temperature\n            maxtemp: options.maxtemp || 30, // Maximum value for target temperature\n            ledColors: {\n                'off': 'rgb(143,141,141)',\n                'heating': 'green',\n                'cooling': 'rgb(81,170,214)'\n            }, //Led Ring Colors\n            labels: {\n                ambient: \"\",\n                set: \"SET\",\n                mode: \"MODE\",\n                minus: \"-\",\n                plus: \"+\",\n                left: \"<\",\n                right: \">\"\n            },\n            onChangeState: options.onChangeState || function() {} // Function called when  switch state change\n        };\n\n        /*\n         * Properties\n         */\n        var properties = {\n            radius: options.diameter / 2,\n            modes: [{\n                    label: \"heating\",\n                    icon: \"\\uf06d\",\n                    color: \"orange\"\n                }, {\n                    label: 'cooling',\n                    icon: \"\\uf2dc\",\n                    color: \"rgb(81,170,214)\"\n                }, {\n                    label: \"off\",\n                    icon: \"\\uf011\",\n                    color: \"rgb(230,0,0)\"\n                }\n                /*, {\n\t\t\t\tlabel: 'away',\n\t\t\t\ticon: \"\\uf1ce\",\n\t\t\t\tcolor: \"gray\"\n\t\t\t} */\n            ],\n            modeNames: [\"heating\", \"cooling\", \"off\"],\n            swtitchStates: [\"heating\", \"cooling\", \"off\"]\n        };\n\n        /*\n         * Object state\n         */\n        var state = {\n            target_temperature: options.mintemp,\n            ambient_temperature: options.maxtemp,\n            mode: properties.modes.indexOf(properties.modes[0]),\n            switch_state: 'off',\n            away: false\n        };\n\n        /*\n         * Property getter / setters\n         */\n        Object.defineProperty(this, 'target_temperature', {\n            get: function() {\n                return state.target_temperature;\n            },\n            set: function(val) {\n                state.target_temperature = rangedTemperature(+val);\n                //render()\n            }\n        });\n\n        Object.defineProperty(this, 'ambient_temperature', {\n            get: function() {\n                return state.ambient_temperature;\n            },\n            set: function(val) {\n                state.ambient_temperature = +val;\n                render();\n            }\n        });\n\n        Object.defineProperty(this, 'mode_name', {\n            get: function() {\n                return properties.modeNames[state.mode];\n            },\n            set: function(val) {\n                if (properties.modeNames.indexOf(val) >= 0) {\n                    state.mode = properties.modeNames.indexOf(val);\n                    //render();\n                }\n            }\n        });\n\n        Object.defineProperty(this, 'switch_state', {\n            get: function() {\n                return state.switch_state;\n            },\n            set: function(val) {\n                if (properties.swtitchStates.indexOf(val) >= 0) {\n                    state.switch_state = val;\n                    //render();\n                }\n            }\n        });\n\n\n        function str2bool(strvalue) {\n            return (strvalue && typeof strvalue == 'string') ? (strvalue.toLowerCase() == 'true') : (strvalue == true);\n        }\n\n        Object.defineProperty(this, 'away', {\n            get: function() {\n                return state.away;\n            },\n            set: function(val) {\n                state.away = !!str2bool(val);\n                //render();\n            }\n        });\n\n\n        /*\n         * SVG\n         */\n        var svg = createSVGElement('svg', {\n            width: '100%', //options.diameter+'px',\n            height: '100%', //options.diameter+'px',\n            viewBox: '0 0 ' + options.diameter + ' ' + options.diameter,\n            class: 'dial'\n        }, targetElement);\n\n        // DEFS \n        var defs = createSVGElement('defs', null, svg);\n\n        var qgradient = createSVGElement('linearGradient', {\n            'id': targetElement.getAttribute('id') + 'qGradient',\n            gradientTransform: 'rotate(65)'\n        }, defs);\n        var stop = createSVGElement('stop', {\n            'offset': '50%',\n            'stop-color': 'rgb(86,89,94)'\n        }, qgradient);\n        var stop = createSVGElement('stop', {\n            'offset': '65%',\n            'stop-color': 'rgb(30,30,30)'\n        }, qgradient);\n\n        var qGradientT = createSVGElement('linearGradient', {\n            'id': targetElement.getAttribute('id') + 'qGradientT',\n            gradientTransform: 'rotate(65)'\n        }, defs);\n        var stop = createSVGElement('stop', {\n            'offset': '55%',\n            'stop-color': '#3b3e43',\n            'stop-opacity': '1'\n        }, qGradientT);\n        var stop = createSVGElement('stop', {\n            'offset': '90%',\n            'stop-color': 'rgb(0,0,0)',\n            'stop-opacity': '1'\n        }, qGradientT);\n\n        var clipPath = createSVGElement('clipPath', {\n            'id': targetElement.getAttribute('id') + 'qClip',\n        }, defs);\n        var circle = createSVGElement('circle', {\n            cx: properties.radius,\n            cy: properties.radius,\n            r: properties.radius - 25\n        }, clipPath);\n\n\n        var ledRingGradient = createSVGElement('radialGradient', {\n            'id': targetElement.getAttribute('id') + 'ledColor',\n            'cx': \"50%\",\n            'cy': \"50%\",\n            'r': \"95%\",\n            'fx': \"50%\",\n            'fy': \"50%\"\n        }, defs);\n        var ledRingGradientColorIn = createSVGElement('stop', {\n            'offset': '45%',\n            'stop-color': 'rgb(255,0,130)',\n            'stop-opacity': '1'\n        }, ledRingGradient);\n        var ledRingGradientColorOut = createSVGElement('stop', {\n            'offset': '65%',\n            'stop-color': 'rgb(0,0,0)',\n            'stop-opacity': '1'\n        }, ledRingGradient);\n\n        var egradient = createSVGElement('linearGradient', {\n            'id': targetElement.getAttribute('id') + 'eGradient',\n            gradientTransform: 'rotate(55)'\n        }, defs);\n        var stop = createSVGElement('stop', {\n            'offset': '55%',\n            'stop-color': '#888888',\n            'stop-opacity': '1'\n        }, egradient);\n        var stop = createSVGElement('stop', {\n            'offset': '95%',\n            'stop-color': '#333333',\n            'stop-opacity': '1'\n        }, egradient);\n\n        // DIAL\n        var circle = createSVGElement('circle', {\n            cx: properties.radius,\n            cy: properties.radius,\n            r: properties.radius,\n            class: 'eGradient'\n        }, svg);\n        var ledRing = createSVGElement('circle', {\n            cx: properties.radius,\n            cy: properties.radius,\n            r: properties.radius - 3,\n            'stroke': 'black',\n            'stroke-width': '1',\n            class: 'led'\n        }, svg);\n        var circle = createSVGElement('circle', {\n            cx: properties.radius,\n            cy: properties.radius,\n            r: properties.radius - 20,\n            class: 'qGradient'\n        }, svg);\n        var circle = createSVGElement('circle', {\n            cx: properties.radius,\n            cy: properties.radius,\n            r: properties.radius - 25,\n            class: 'qGradient'\n        }, svg);\n        var lblMain = createSVGElement('text', {\n            x: properties.radius,\n            y: 70,\n            class: 'lbl lblDial'\n        }, svg);\n        var lblMainText = document.createTextNode(options.labels.ambient);\n        lblMain.appendChild(lblMainText);\n\n        var lblAmbient = createSVGElement('text', {\n            x: properties.radius,\n            y: 210,\n            'font-size': '160',\n            class: 'lbl lblAmbient'\n        }, svg);\n        var lblAmbientText = document.createTextNode('21');\n        lblAmbient.appendChild(lblAmbientText);\n        var lblAmbientDec = createSVGElement('tspan', {\n            'font-size': '60',\n        }, lblAmbient);\n        var lblAmbientDecText = document.createTextNode('.5');\n        lblAmbientDec.appendChild(lblAmbientDecText);\n\n        var line = createSVGElement('line', {\n            x1: 55,\n            y1: properties.radius + 35,\n            x2: options.diameter - 55,\n            y2: properties.radius + 35,\n            'stroke': '#DDDDDD',\n            'stroke-width': '1',\n            'opacity': '0.8'\n        }, svg);\n\n        var lblLeft = createSVGElement('text', {\n            x: 125,\n            y: properties.radius + 75,\n            class: 'lbl lblDial'\n        }, svg);\n        var lblLeftText = document.createTextNode(options.labels.set);\n        lblLeft.appendChild(lblLeftText);\n\n        var lblTarget = createSVGElement('text', {\n            x: 125,\n            y: properties.radius + 115,\n            'font-size': '35',\n            class: 'lbl lblTarget',\n            'id': targetElement.getAttribute('id') + 'lblTarget'\n        }, svg);\n        var lblTargetText = document.createTextNode('20');\n        lblTarget.appendChild(lblTargetText);\n\n        var lblTargetDec = createSVGElement('tspan', {\n            'font-size': '20',\n        }, lblTarget);\n\n        var lblTargetDecText = document.createTextNode('.5');\n        lblTargetDec.appendChild(lblTargetDecText);\n\n        var lblRight = createSVGElement('text', {\n            x: options.diameter - 125,\n            y: properties.radius + 75,\n            class: 'lbl lblDial'\n        }, svg);\n        var lblRightText = document.createTextNode(options.labels.mode);\n        lblRight.appendChild(lblRightText);\n\n        var lblMode = createSVGElement('text', {\n            x: options.diameter - 125,\n            y: properties.radius + 115,\n            'font-size': '35',\n            class: 'lbl lblTarget icon',\n            'id' : targetElement.getAttribute('id') + 'lblMode'\n        }, svg);\n        var lblModeText = document.createTextNode(properties.modes[0].icon);\n        lblMode.appendChild(lblModeText);\n\n        var btnSet = createSVGElement('g', {\n            transform: 'translate(200,200)'\n        }, svg);\n        var btnLeft = createSVGElement('path', {\n            d: 'M0,40 L0,175   A175,175 0 0,1 -175,40    z',\n            fill: 'blue',\n            opacity: '0',\n            'id': targetElement.getAttribute('id') + 'btnLeft'\n        }, btnSet);\n        var btnRight = createSVGElement('path', {\n            d: 'M0,40 L175,40   A175,175 0 0,1    0,175  z',\n            fill: 'red',\n            opacity: '0',\n            'id': targetElement.getAttribute('id') + 'btnRight'\n        }, btnSet);\n\n\n\n        btnLeft.onclick = function() {\n            setTargetClick();\n        };\n\n        btnRight.onclick = function() {\n            setModeClick();\n        };\n\n        var targetPanel = false;\n        var modePanel = false;\n\n        var lblAmbientAttributes = {\n            x: lblAmbient.getAttribute('x'),\n            y: lblAmbient.getAttribute('y'),\n            size: lblAmbient.getAttribute('font-size')\n        };\n\n        var lblAmbientDecAttributes = {\n            x: lblAmbientDec.getAttribute('x'),\n            y: lblAmbientDec.getAttribute('y'),\n            size: lblAmbientDec.getAttribute('font-size')\n        };\n\n        var lblTargetAttributes = {\n            x: lblTarget.getAttribute('x'),\n            y: lblTarget.getAttribute('y'),\n            size: lblTarget.getAttribute('font-size')\n        };\n\n        var lblTargetDecAttributes = {\n            x: lblTargetDec.getAttribute('x'),\n            y: lblTargetDec.getAttribute('y'),\n            size: lblTargetDec.getAttribute('font-size')\n        };\n\n        var lblModeAttributes = {\n            x: lblMode.getAttribute('x'),\n            y: lblMode.getAttribute('y'),\n            size: lblMode.getAttribute('font-size')\n        };\n\n        var lblRightAttributes = {\n            x: lblRight.getAttribute('x'),\n            y: lblRight.getAttribute('y'),\n            size: lblRight.getAttribute('font-size')\n        };\n\n        var lblLeftAttributes = {\n            x: lblLeft.getAttribute('x'),\n            y: lblLeft.getAttribute('y'),\n            size: lblLeft.getAttribute('font-size')\n        };\n\n        render();\n\n        function setAmbientTemperature(ambientTemp) {\n            var splitValues = separateDecValue(ambientTemp);\n            lblAmbientText.textContent = splitValues.int;\n            lblAmbientDecText.textContent = splitValues.dec;\n        };\n\n\n        function calcTargetTemperature(operation) {\n            let currentTemp = Number(parseFloat(lblTargetText.textContent + lblTargetDecText.textContent)).toFixed(1);\n            let targetTemp = (operation == '-' ? Number(Number(currentTemp) - 0.5).toFixed(1) : Number(Number(currentTemp) + 0.5).toFixed(1));\n            targetTemp = rangedTemperature(targetTemp);\n            setTargetTemperature(targetTemp);\n            chkSwitchState();\n        };\n\n        function setTargetTemperature(targetTemp) {\n            var splitValues = separateDecValue(targetTemp);\n            lblTargetText.textContent = splitValues.int;\n            lblTargetDecText.textContent = splitValues.dec;\n            if (state.target_temperature != targetTemp) {\n                state.target_temperature = targetTemp\n                sendMsg();\n            };\n        };\n\n        function separateDecValue(floatFalue) {\n            var int = Math.floor(floatFalue);\n            var dec = Math.floor(((floatFalue % 1) * 10)) > 0 ? (\".\" + Math.floor(((floatFalue % 1) * 10))) : \"\";\n            return {\n                int,\n                dec\n            };\n        };\n\n        function rangedTemperature(temperature) {\n            temperature = temperature < options.mintemp ? options.maxtemp : temperature;\n            temperature = temperature > options.maxtemp ? options.mintemp : temperature;\n            return temperature;\n        };\n\n        function chkSwitchState() {\n            console.log(\"chkSwitchState\");\n            var switchState = state.switch_state;\n            switch (state.mode) {\n                case 0:\n                    switchState = state.ambient_temperature < state.target_temperature ? 'heating' : 'off';\n                    break;\n                case 1:\n                    switchState = state.ambient_temperature > state.target_temperature ? 'cooling' : 'off';\n                    break;\n                default:\n                    switchState = 'off';\n            };\n\n            ledRingGradientColorIn.setAttribute('stop-color', options.ledColors[state.switch_state]);\n\n            if (state.switch_state != switchState) {\n                state.switch_state = switchState;\n                sendMsg();\n            };\n        };\n\n\n        function resetButton() {\n            btnLeft.onmousedown = \"\";\n            btnLeft.onmouseup = \"\";\n            btnLeft.onclick = function() {\n                setTargetClick();\n            };\n            btnRight.onmousedown = \"\";\n            btnRight.onmouseup = \"\";\n            btnRight.onclick = function() {\n                setModeClick();\n            };\n        };\n\n        function switchMainView(element, originalAttributes, mainLabel, leftLabel, rightLabel, panelState) {\n            setClass(lblAmbient, \"nodisplay\", panelState);\n            setClass(lblMain, \"animate\", panelState);\n            setClass(lblLeft, \"animate\", panelState);\n            setClass(lblRight, \"animate\", panelState);\n            setClass(element, \"animate\", panelState);\n\n            lblMainText.textContent = panelState ? mainLabel : options.labels.ambient;\n            lblLeftText.textContent = panelState ? leftLabel : options.labels.set;\n\n            lblLeft.setAttribute('y', panelState ? Number(lblLeftAttributes.y) + 40 : lblLeftAttributes.y);\n            lblLeft.setAttribute('font-size', panelState ? \"3.5em\" : \"1em\");\n\n            lblRightText.textContent = panelState ? rightLabel : options.labels.mode;\n            lblRight.setAttribute('y', panelState ? Number(lblRightAttributes.y) + 40 : lblRightAttributes.y);\n            lblRight.setAttribute('font-size', panelState ? \"3.5em\" : \"1em\");\n\n            element.setAttribute('x', panelState ? lblAmbientAttributes.x : originalAttributes.x);\n            element.setAttribute('x', panelState ? lblAmbientAttributes.x : originalAttributes.x);\n            element.setAttribute('y', panelState ? lblAmbientAttributes.y : originalAttributes.y);\n            element.setAttribute('font-size', panelState ? lblAmbientAttributes.size : originalAttributes.size);\n\n        };\n\n\n        function setTargetClick() {\n\n            targetPanel = targetPanel ? false : true;\n            setClass(lblMode, \"nodisplay\", targetPanel);\n            switchMainView(lblTarget, lblTargetAttributes, options.labels.set, options.labels.minus, options.labels.plus, targetPanel);\n\n            lblTargetDec.setAttribute('font-size', targetPanel ? lblAmbientDecAttributes.size : lblTargetDecAttributes.size);\n\n            if (targetPanel) {\n                btnLeft.onclick = \"\";\n                btnRight.onclick = \"\";\n\n                btnLeft.onmousedown = function() {\n                    calcTargetTemperature(\"-\");\n                    if (mousedownID == -1) { //Prevent multimple loops!\n                        mousedownID = setInterval(calcTargetTemperature, 500, '-');\n                    }\n                };\n                btnLeft.onmouseup = function() {\n                    if (mousedownID != -1) { //Only stop if exists\n                        clearInterval(mousedownID);\n                        mousedownID = -1;\n                    }\n                };\n\n                btnRight.onmousedown = function() {\n                    calcTargetTemperature(\"+\");\n                    if (mousedownID == -1) { //Prevent multimple loops!\n                        mousedownID = setInterval(calcTargetTemperature, 500, '+');\n                    }\n                };\n                btnRight.onmouseup = function() {\n                    if (mousedownID != -1) { //Only stop if exists\n                        clearInterval(mousedownID);\n                        mousedownID = -1;\n                    }\n                };\n\n                lblTarget.onclick = function() {\n                    setTargetClick();\n                };\n            } else {\n                resetButton()\n            }\n        };\n\n        function setModeClick() {\n\n            modePanel = modePanel ? false : true;\n            setClass(lblTarget, \"nodisplay\", modePanel);\n            switchMainView(lblMode, lblModeAttributes, options.labels.mode, options.labels.left, options.labels.right, modePanel);\n\n            if (modePanel) {\n\n                btnLeft.onclick = function() {\n                    mode = state.mode;\n                    mode = --mode < 0 ? properties.modes.length - 1 : mode;\n                    console.log(\"MODE :\" + mode);\n                    setModeName(properties.modeNames[mode]);\n                    chkSwitchState();\n                    sendMsg();\n                };\n\n                btnRight.onclick = function() {\n                    mode = state.mode;\n                    mode = ++mode > properties.modes.length - 1 ? 0 : mode;\n                    console.log(\"MODE :\" + mode);\n                    setModeName(properties.modeNames[mode]);\n                    chkSwitchState();\n                    sendMsg();\n                };\n//                document.getElementById(targetElement.getAttribute('id') + \"lblMode\").onclick = function() {\n                lblMode.onclick = function() {\n                    setModeClick();\n                };\n            } else {\n                resetButton()\n            }\n        };\n\n        function setModeName(modeName) {\n            lblMode.textContent = properties.modes[properties.modeNames.indexOf(modeName)].icon;\n            lblMode.style.fill = properties.modes[properties.modeNames.indexOf(modeName)].color;\n            state.mode = properties.modeNames.indexOf(modeName);\n        };\n\n        function sendMsg() {\n            if (typeof options.onChangeState == 'function') {\n                options.onChangeState(state.switch_state);\n            }\n        };\n\n        function render() {\n            console.log(\"RENDER\");\n            setAmbientTemperature(self.ambient_temperature);\n            setTargetTemperature(self.target_temperature);\n            setModeName(self.mode_name);\n            chkSwitchState();\n        };\n\n    };\n})();\n\nvar initializing = true;\n(function(scope) {\n    console.log(\"scope.id = GhostThermostat\" + scope.$id);\n    $(function() {\n        var ghostThermostat = new ghostThermostatDial(document.getElementById('GhostThermostat' + scope.$id), {\n            onChangeState: function() {\n                var p = {\n                    \"ambient_temperature\": ghostThermostat.ambient_temperature,\n                    \"target_temperature\": ghostThermostat.target_temperature,\n                    \"mode\": ghostThermostat.mode_name,\n                    \"switch_state\": ghostThermostat.switch_state,\n                    \"away\": ghostThermostat.away\n                };\n                scope.send({\n                    topic: \"changed_state\",\n                    payload: p\n                });\n            }\n        });\n\n\n        scope.$watch('msg', function(data) {\n            if (initializing) {\n                initializing = false;\n            } else {\n                ghostThermostat.ambient_temperature = data.payload.ambient_temperature || ghostThermostat.ambient_temperature;\n                ghostThermostat.target_temperature = data.payload.target_temperature || ghostThermostat.target_temperature;\n                ghostThermostat.mode_name = data.payload.mode || ghostThermostat.mode_name;\n                ghostThermostat.switch_state = data.payload.switch_state || ghostThermostat.switch_state;\n                ghostThermostat.away = data.payload.away || ghostThermostat.away;\n            }\n        });\n    });\n})(scope);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 930,
+        "y": 100,
+        "wires": [
+            [
+                "07d93d0546f30a76"
+            ]
+        ],
+        "icon": "font-awesome/fa-tachometer"
+    },
+    {
+        "id": "13dac31fb567fbb6",
+        "type": "debug",
+        "z": "3b6c4428c6b934be",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "4a75038621790a7d",
+        "type": "mysql",
+        "z": "3b6c4428c6b934be",
+        "mydb": "744a7d9a31fdaebd",
+        "name": "Database",
+        "x": 980,
+        "y": 620,
+        "wires": [
+            [
+                "a70f9ae4a19a8e8f"
+            ]
+        ]
+    },
+    {
+        "id": "a70f9ae4a19a8e8f",
+        "type": "split",
+        "z": "3b6c4428c6b934be",
+        "name": "Suddivisione risultato query",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 1220,
+        "y": 620,
+        "wires": [
+            [
+                "d5f18cb5e6665028"
+            ]
+        ],
+        "info": "# Suddivisione riga per riga del risultato della query in modo da avere le temperature medie di ogni ora in oggetti separati."
+    },
+    {
+        "id": "d5f18cb5e6665028",
+        "type": "change",
+        "z": "3b6c4428c6b934be",
+        "name": "Formattazione msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload.ora",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.umidita",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1490,
+        "y": 620,
+        "wires": [
+            [
+                "b528f90afadf6e0e"
+            ]
+        ],
+        "info": "# Formattazione di msg come richesto dal nodo del grafico.\r\n---\r\nmsg.topic = x del grafico <br>\r\nmsg.payload = y del grafico"
+    },
+    {
+        "id": "b528f90afadf6e0e",
+        "type": "average-bars",
+        "z": "3b6c4428c6b934be",
+        "name": "Grafico umidità",
+        "title": " ",
+        "period": "topic",
+        "yMin": "auto",
+        "yMax": "auto",
+        "showBarsValue": true,
+        "showScaleValue": true,
+        "showLastValue": false,
+        "showAverageValue": true,
+        "showMinimumValue": true,
+        "showMaximumValue": true,
+        "maxBar": 30,
+        "topColor": "#ff0000",
+        "bottomColor": "#ffff00",
+        "unit": "%",
+        "fontColor": "#aaaaaa",
+        "barStyle": "Equalizer",
+        "decimal": 1,
+        "x": 1720,
+        "y": 620,
+        "wires": [
+            [
+                "97c89933527ef242"
+            ]
+        ],
+        "info": "# Grafico umidità oraria media\r\n---\r\n**\"minimum\"** temperatura minima <br>\r\n**\"maximum\"** temperatura massima <br>\r\n**\"average\"** temperatura media giornaliera"
+    },
+    {
+        "id": "97c89933527ef242",
+        "type": "ui_template",
+        "z": "3b6c4428c6b934be",
+        "group": "0dc19fcf9caf1ebd",
+        "name": "",
+        "order": 4,
+        "width": "16",
+        "height": "6",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2020,
+        "y": 620,
+        "wires": [
+            []
+        ],
+        "info": "# HTML graph binding"
+    },
+    {
+        "id": "4374f17ba5ee1a3d",
+        "type": "mysql",
+        "z": "3b6c4428c6b934be",
+        "mydb": "744a7d9a31fdaebd",
+        "name": "Database",
+        "x": 980,
+        "y": 540,
+        "wires": [
+            [
+                "ddef946bf7cc5d68"
+            ]
+        ]
+    },
+    {
+        "id": "e798e839ced2b714",
+        "type": "inject",
+        "z": "3b6c4428c6b934be",
+        "name": "Inject timestamp",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 540,
+        "wires": [
+            [
+                "edde81961d4e720f",
+                "58a39e14b0c96c4a",
+                "f87d811c32400d07"
+            ]
+        ],
+        "info": "# Creazione della query per ottenere la media oraria delle temperature percepite da inserire nel grafico."
+    },
+    {
+        "id": "ddef946bf7cc5d68",
+        "type": "split",
+        "z": "3b6c4428c6b934be",
+        "name": "Suddivisione risultato query",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 1220,
+        "y": 540,
+        "wires": [
+            [
+                "f55e28bf9c89d6fc"
+            ]
+        ],
+        "info": "# Suddivisione riga per riga del risultato della query in modo da avere le temperature medie di ogni ora in oggetti separati."
+    },
+    {
+        "id": "f55e28bf9c89d6fc",
+        "type": "change",
+        "z": "3b6c4428c6b934be",
+        "name": "Formattazione msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload.ora",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.indiceCalore",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1490,
+        "y": 540,
+        "wires": [
+            [
+                "f8d645c05d2b44a5"
+            ]
+        ],
+        "info": "# Formattazione di msg come richesto dal nodo del grafico.\r\n---\r\nmsg.topic = x del grafico <br>\r\nmsg.payload = y del grafico"
+    },
+    {
+        "id": "f8d645c05d2b44a5",
+        "type": "average-bars",
+        "z": "3b6c4428c6b934be",
+        "name": "Grafico temperatura percepita",
+        "title": " ",
+        "period": "topic",
+        "yMin": "auto",
+        "yMax": "auto",
+        "showBarsValue": true,
+        "showScaleValue": true,
+        "showLastValue": false,
+        "showAverageValue": true,
+        "showMinimumValue": true,
+        "showMaximumValue": true,
+        "maxBar": 30,
+        "topColor": "#ff0000",
+        "bottomColor": "#ffff00",
+        "unit": "°C",
+        "fontColor": "#aaaaaa",
+        "barStyle": "Equalizer",
+        "decimal": 1,
+        "x": 1770,
+        "y": 540,
+        "wires": [
+            [
+                "80ac23c72fb3c414"
+            ]
+        ],
+        "info": "# Grafico temperatura oraria media percepita\r\n---\r\n**\"minimum\"** temperatura minima <br>\r\n**\"maximum\"** temperatura massima <br>\r\n**\"average\"** temperatura media giornaliera"
+    },
+    {
+        "id": "80ac23c72fb3c414",
+        "type": "ui_template",
+        "z": "3b6c4428c6b934be",
+        "group": "ad2a676bc0a4199d",
+        "name": "",
+        "order": 4,
+        "width": "16",
+        "height": "6",
+        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 2020,
+        "y": 540,
+        "wires": [
+            []
+        ],
+        "info": "# HTML graph binding"
+    },
+    {
+        "id": "0918bb7c1749d3ca",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "Formattazione parametri",
+        "func": "msg.topic = ['ambient_temperature','target_temperature','mode'];\nvar data = {\n    'ambient_temperature': msg.payload || 20,\n    'target_temperature': flow.get(\"target_temperature\") || 20,\n    'mode': flow.get(\"mode\") || \"off\"\n}\nmsg.payload = data;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 100,
+        "wires": [
+            [
+                "ab8fb1c28921f1dd"
+            ]
+        ],
+        "info": "Formattazione valore temperatura desiderata per interfaccia termostato"
+    },
+    {
+        "id": "7391c7034fd33808",
+        "type": "comment",
+        "z": "3b6c4428c6b934be",
+        "name": "NODI SCARTATI",
+        "info": "Nodi che abbiamo usato per provare alcune funzionalità che poi abbiamo deciso di scartare, avendo trovato soluzioni migliori.",
+        "x": 620,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "07d93d0546f30a76",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "Settaggio parametri",
+        "func": "flow.set(\"target_temperature\", msg.payload[\"target_temperature\"]);\nflow.set(\"mode\",msg.payload[\"mode\"]);",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 100,
+        "wires": [
+            []
+        ],
+        "info": "Settaggio variabile di flow per temperatura desiderata"
+    },
+    {
+        "id": "d188f4de7d918511",
+        "type": "inject",
+        "z": "3b6c4428c6b934be",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 810,
+        "y": 320,
+        "wires": [
+            [
+                "faa04aba9cb2b39a"
+            ]
+        ]
+    },
+    {
+        "id": "faa04aba9cb2b39a",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "function 2",
+        "func": "flow.set('target_temperature',25);",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "58a39e14b0c96c4a",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "Query temperatura oraria media",
+        "func": "msg.topic = \"SELECT HOUR(dataOra) AS ora,TRUNCATE(AVG (temperatura),1) AS temperatura FROM Rilevazione WHERE dataOra > '2023-07-19 ?' - INTERVAL 1 DAY GROUP BY HOUR(dataOra) ORDER BY dataOra;\"\nvar dt = new Date(msg.payload);\nmsg.payload = [dt.getHours()];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 460,
+        "wires": [
+            [
+                "71c16dad12b16203"
+            ]
+        ]
+    },
+    {
+        "id": "edde81961d4e720f",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "Query temperatura oraria media percepita",
+        "func": "msg.topic = \"SELECT HOUR(dataOra) AS ora,TRUNCATE(AVG (heatIndex),1) AS indiceCalore FROM Rilevazione WHERE dataOra >  '2023-07-19 ?' - INTERVAL 1 DAY GROUP BY HOUR(dataOra) ORDER BY dataOra;\"\nvar dt = new Date(msg.payload);\nmsg.payload = [dt.getHours()];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 540,
+        "wires": [
+            [
+                "4374f17ba5ee1a3d"
+            ]
+        ]
+    },
+    {
+        "id": "f87d811c32400d07",
+        "type": "function",
+        "z": "3b6c4428c6b934be",
+        "name": "Query umidità oraria media",
+        "func": "msg.topic = \"SELECT HOUR(dataOra) AS ora,TRUNCATE(AVG (umidità),1) AS umidita FROM Rilevazione WHERE dataOra >  '2023-07-19 ?' - INTERVAL 1 DAY GROUP BY HOUR(dataOra) ORDER BY dataOra;\"\nvar dt = new Date(msg.payload);\nmsg.payload = [dt.getHours()];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 620,
+        "wires": [
+            [
+                "4a75038621790a7d"
+            ]
+        ]
+    },
+    {
+        "id": "0e8a6494eef961a4",
+        "type": "ui_spacer",
+        "z": "3b6c4428c6b934be",
+        "name": "spacer",
+        "group": "9c90a075584ede2b",
+        "order": 3,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "f522421db35e450b",
+        "type": "ui_spacer",
+        "z": "3b6c4428c6b934be",
+        "name": "spacer",
+        "group": "0dc19fcf9caf1ebd",
+        "order": 5,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "f498b23b50d2c23b",
+        "type": "ui_spacer",
+        "z": "3b6c4428c6b934be",
+        "name": "spacer",
+        "group": "ad2a676bc0a4199d",
+        "order": 3,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "f09a7a83f841b90b",
+        "type": "ui_spacer",
+        "z": "3b6c4428c6b934be",
+        "name": "spacer",
+        "group": "9c90a075584ede2b",
+        "order": 1,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "c26a550069a67e50",
+        "type": "ui_spacer",
+        "z": "3b6c4428c6b934be",
+        "name": "spacer",
+        "group": "9c90a075584ede2b",
+        "order": 5,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "127639317ceebad4",
+        "type": "ui_spacer",
+        "z": "3b6c4428c6b934be",
+        "name": "spacer",
+        "group": "ad2a676bc0a4199d",
+        "order": 1,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "6f501b3257cc9bc8",
+        "type": "ui_spacer",
+        "z": "3b6c4428c6b934be",
+        "name": "spacer",
+        "group": "ad2a676bc0a4199d",
+        "order": 6,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "c988147bb2cc6833",
+        "type": "ui_spacer",
+        "z": "3b6c4428c6b934be",
+        "name": "spacer",
+        "group": "0dc19fcf9caf1ebd",
+        "order": 1,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "5ebdf66b48a444c1",
+        "type": "ui_spacer",
+        "z": "3b6c4428c6b934be",
+        "name": "spacer",
+        "group": "0dc19fcf9caf1ebd",
+        "order": 3,
+        "width": "1",
+        "height": "6"
+    },
+    {
+        "id": "7d01899f5793cbad",
+        "type": "mqtt-broker",
+        "name": "Raspberry PI",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "0dc19fcf9caf1ebd",
+        "type": "ui_group",
+        "name": "Umidità",
+        "tab": "5e21d90554d31c1d",
+        "order": 5,
+        "disp": true,
+        "width": "25",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "ad2a676bc0a4199d",
+        "type": "ui_group",
+        "name": "Temperatura Percepita",
+        "tab": "5e21d90554d31c1d",
+        "order": 3,
+        "disp": true,
+        "width": "25",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "744a7d9a31fdaebd",
+        "type": "MySQLdatabase",
+        "name": "Termostato DB",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "termostato",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "9c90a075584ede2b",
+        "type": "ui_group",
+        "name": "Termostato",
+        "tab": "5e21d90554d31c1d",
+        "order": 1,
+        "disp": true,
+        "width": "25",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "5e21d90554d31c1d",
+        "type": "ui_tab",
+        "name": "Sala Riunioni",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
